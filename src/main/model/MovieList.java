@@ -1,9 +1,6 @@
 package model;
 
 
-import org.w3c.dom.ls.LSOutput;
-
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -64,7 +61,15 @@ public class MovieList {
     }
 
 
-    public int totalWatchedMovies () {
+    public int totalUnwatchedMovies () {
+        int sum = 0;
+        for (Movie m : towatchlist) {
+            sum++;
+        }
+        return sum;
+    }
+
+    public int totalAlreadyWatchedMovies () {
         int sum = 0;
         for (Movie m : alreadywatchedlist) {
             sum++;
@@ -72,12 +77,12 @@ public class MovieList {
         return sum;
     }
 
-    public int totalUnwatchedMovies () {
-        int sum = 0;
-        for (Movie m : towatchlist) {
-            sum++;
+    public int totalAlreadyWatchedMovieTime() {
+        int time = 0;
+        for (Movie m : alreadywatchedlist) {
+            time = time + m.getRuntime();
         }
-        return sum;
+        return time;
     }
 
     public int totalUnwatchedMovieTime() {
@@ -87,6 +92,7 @@ public class MovieList {
         }
         return time;
     }
+
 }
 
 
