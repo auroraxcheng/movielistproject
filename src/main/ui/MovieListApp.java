@@ -5,7 +5,9 @@ import model.MovieList;
 import java.util.Scanner;
 
 public class MovieListApp {
+
     /*
+
     private MovieList movielist;
     private Scanner input;
 
@@ -14,6 +16,9 @@ public class MovieListApp {
         runTracker();
     }
 
+    //modifies: this
+    // effects: takes input from users and uses it for tracker
+    public void runTracker()
 
     */
 }

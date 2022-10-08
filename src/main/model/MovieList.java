@@ -52,16 +52,7 @@ public class MovieList {
         this.alreadywatchedlist.remove(m);
     }
 
-    //effects: prints out list of genres of movies in watched list
-    public void watchedGenres() {
-        System.out.println("List of genres:");
-        for (Movie g : alreadywatchedlist) {
-            System.out.println(g.getGenre());
-        }
-    }
-
-
-    public int totalUnwatchedMovies () {
+    public int totalUnwatchedMovies() {
         int sum = 0;
         for (Movie m : towatchlist) {
             sum++;
@@ -69,7 +60,7 @@ public class MovieList {
         return sum;
     }
 
-    public int totalAlreadyWatchedMovies () {
+    public int totalAlreadyWatchedMovies() {
         int sum = 0;
         for (Movie m : alreadywatchedlist) {
             sum++;

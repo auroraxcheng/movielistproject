@@ -28,6 +28,11 @@ public class MovieListTest {
     }
 
     @Test
+    public void testConstructor() {
+        assertEquals("Aurora's list", testlist.getTitle());
+    }
+
+    @Test
     public void addWatchedMovieTest() {
         assertTrue(testlist.getAlreadyWatchedList().contains(m1));
     }
