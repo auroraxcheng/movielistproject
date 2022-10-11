@@ -2,6 +2,8 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MovieListTest {
@@ -74,6 +76,7 @@ public class MovieListTest {
         assertFalse(testlist.getToWatchList().contains(m2));
     }
 
+        /*
     @Test
     public void totalUnwatchedMoviesTest() {
         assertEquals(1, testlist.totalUnwatchedMovies());
@@ -119,8 +122,25 @@ public class MovieListTest {
     public void totalMultipleUnwatchedMovieTimes() {
         testlist.addToWatchMovie(m3);
         testlist.addToWatchMovie(m5);
-        assertEquals(450, testlist.totalUnwatchedMovieTime());
+        List<Movie> x = testlist.getToWatchList();
+
+        assertEquals("450", testlist.printMovieRuntime(x));
     }
 
+         */
+
+    @Test
+    public void moveMovieTest() {
+        testlist.moveMovie(m1);
+        assertFalse(testlist.getToWatchList().contains(m1));
+        assertTrue(testlist.getAlreadyWatchedList().contains(m1));
+    }
+
+    @Test
+    public void moveMovieWhenNotThereTest() {
+        testlist.moveMovie(m5);
+        assertFalse(testlist.getToWatchList().contains(m5));
+        assertFalse(testlist.getAlreadyWatchedList().contains(m5));
+    }
 }
 

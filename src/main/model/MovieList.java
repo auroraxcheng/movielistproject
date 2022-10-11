@@ -28,14 +28,15 @@ public class MovieList {
         return alreadywatchedlist;
     }
 
+
     // MODIFIES: this
-    // effects: adds a movie to watch list
+    // effects: adds a movie to to-watch list
     public void addToWatchMovie(Movie m) {
         this.towatchlist.add(m);
     }
 
     // MODIFIES: this
-    // effects: removes a movie to watch list
+    // effects: removes a movie from to-watch list
     public void removeToWatchMovie(Movie m) {
         this.towatchlist.remove(m);
     }
@@ -47,44 +48,23 @@ public class MovieList {
     }
 
     // MODIFIES: this
-    // effects: removes a movie already watch list
+    // effects: removes a movie from already watched watch list
     public void removeWatchedMovie(Movie m) {
         this.alreadywatchedlist.remove(m);
     }
 
-    public int totalUnwatchedMovies() {
-        int sum = 0;
-        for (Movie m : towatchlist) {
-            sum++;
+    // modifies: towatchlist and alreadywatchedlist
+    // effects: moves movie from unwatched to watched list
+    public void moveMovie(Movie m) {
+        if (towatchlist.contains(m)) {
+            towatchlist.remove(m);
+            alreadywatchedlist.add(m);
+        } else {
+            System.out.println("Movie isn't in to-watch list");
         }
-        return sum;
     }
-
-    public int totalAlreadyWatchedMovies() {
-        int sum = 0;
-        for (Movie m : alreadywatchedlist) {
-            sum++;
-        }
-        return sum;
-    }
-
-    public int totalAlreadyWatchedMovieTime() {
-        int time = 0;
-        for (Movie m : alreadywatchedlist) {
-            time = time + m.getRuntime();
-        }
-        return time;
-    }
-
-    public int totalUnwatchedMovieTime() {
-        int time = 0;
-        for (Movie m : towatchlist) {
-            time = time + m.getRuntime();
-        }
-        return time;
-    }
-
 }
+
 
 
 
