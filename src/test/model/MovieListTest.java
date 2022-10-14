@@ -54,6 +54,14 @@ public class MovieListTest {
     }
 
     @Test
+    public void addMultipleToWatchMovieTest() {
+        testlist.addToWatchMovie(m3);
+        assertTrue(testlist.getToWatchList().contains(m3));
+        testlist.addToWatchMovie(m2);
+        assertTrue(testlist.getToWatchList().contains(m2));
+    }
+
+    @Test
     public void removeWatchedMovieTest() {
         testlist.removeWatchedMovie(m1);
         assertFalse(testlist.getAlreadyWatchedList().contains(m1));
@@ -76,58 +84,16 @@ public class MovieListTest {
         assertFalse(testlist.getToWatchList().contains(m2));
     }
 
-        /*
     @Test
-    public void totalUnwatchedMoviesTest() {
-        assertEquals(1, testlist.totalUnwatchedMovies());
-    }
-
-    @Test
-    public void totalNoUnwatchedMoviesTest() {
-        testlist.removeToWatchMovie(m2);
-        assertEquals(0, testlist.totalUnwatchedMovies());
-    }
-
-    @Test
-    public void totalAlreadyWatchedMoviesTest() {
-        testlist.addWatchedMovie(m3);
-        assertEquals(2, testlist.totalAlreadyWatchedMovies());
-    }
-
-    @Test
-    public void totalNoAlreadyWatchedMoviesTest() {
-        testlist.removeWatchedMovie(m1);
-        assertEquals(0, testlist.totalAlreadyWatchedMovies());
-    }
-
-    @Test
-    public void totalUnwatchedMovieTimes() {
-        assertEquals(100, testlist.totalUnwatchedMovieTime());
-    }
-
-    @Test
-    public void totalWatchedMovieTimes() {
-        testlist.addWatchedMovie(m4);
-        assertEquals(500, testlist.totalAlreadyWatchedMovieTime());
-    }
-
-    @Test
-    public void totalNoWatchedMovieTime() {
-        testlist.removeWatchedMovie(m1);
-        assertEquals(0, testlist.totalAlreadyWatchedMovieTime());
-    }
-
-
-    @Test
-    public void totalMultipleUnwatchedMovieTimes() {
-        testlist.addToWatchMovie(m3);
+    public void removeMultipleToWatchMovieTest() {
+        testlist.addToWatchMovie(m4);
         testlist.addToWatchMovie(m5);
-        List<Movie> x = testlist.getToWatchList();
-
-        assertEquals("450", testlist.printMovieRuntime(x));
+        testlist.removeWatchedMovie(m2);
+        assertFalse(testlist.getAlreadyWatchedList().contains(m2));
+        testlist.removeWatchedMovie(m5);
+        assertFalse(testlist.getAlreadyWatchedList().contains(m5));
+        assertEquals(1, testlist.getAlreadyWatchedList().size());
     }
-
-         */
 
     @Test
     public void moveMovieTest() {

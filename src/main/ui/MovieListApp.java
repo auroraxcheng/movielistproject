@@ -88,18 +88,18 @@ public class MovieListApp {
     }
 
     // modifies: this
-    // effects: deletes a movie from watch list
+    // effects: deletes a movie from selected list. If movie is not in the list,
+    // nothing will be printed out
     private void deleteFromList() {
         List<Movie> selected = selectList();
         System.out.println("Enter movie name");
+        System.out.println("If movie has been removed successfully, there will be a confirmation message.");
         String moviename = input.next();
 
         for (Movie m : selected) {
             if (moviename.equals(m.getName())) {
                 selected.remove(m);
                 System.out.println("Movie removed");
-            } else {
-                System.out.println("Cannot perform. Movie is not in list.");
             }
         }
     }
@@ -122,19 +122,19 @@ public class MovieListApp {
     }
 
     // modifies: towatchlist and already watched list
-    // effects: moves movie from towatch to already watched list
+    // effects: moves movie from towatch to already watched list. If movie is not
+    // in the list, nothing will print out.
     private void moveLists() {
         System.out.println("Enter movie name: ");
+        System.out.println("If movie has been moved successfully, there will be a confirmation message.");
         String moviename = input.next();
+
 
         for (Movie m : movielist.getToWatchList()) {
             if (moviename.equals(m.getName())) {
                 movielist.moveMovie(m);
                 System.out.println("Movie has been moved. Watched list: ");
                 printMovieNames(movielist.getAlreadyWatchedList());
-            } else {
-                System.out.println("Movie is not in list. Here is the towatch list: ");
-                printMovieNames(movielist.getToWatchList());
             }
         }
     }
@@ -145,7 +145,7 @@ public class MovieListApp {
         printNumMoviesInList(selected);
     }
 
-    // effects: show user total runtime of movies in each list
+    // effects: shows user total runtime of movies in each list
     private void runtimeOfList() {
         List<Movie> selected = selectList();
         printMovieRuntime(selected);

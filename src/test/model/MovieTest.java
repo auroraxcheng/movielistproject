@@ -12,6 +12,7 @@ public class MovieTest {
     public void setup() {
         testMovie = new Movie("Frozen", MovieGenre.FANTASY, 160);
     }
+
     @Test
     public void testGetters() {
         assertEquals(testMovie.getName(), "Frozen");
