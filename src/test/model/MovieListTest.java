@@ -108,5 +108,16 @@ public class MovieListTest {
         assertFalse(testlist.getToWatchList().contains(m5));
         assertFalse(testlist.getAlreadyWatchedList().contains(m5));
     }
-}
+
+    @Test
+    public void moveMultipleMovies() {
+        testlist.addToWatchMovie(m4);
+        testlist.moveMovie(m1);
+        assertFalse(testlist.getToWatchList().contains(m1));
+        assertTrue(testlist.getAlreadyWatchedList().contains(m1));
+        testlist.moveMovie(m4);
+        assertFalse(testlist.getToWatchList().contains(m4));
+        assertTrue(testlist.getAlreadyWatchedList().contains(m4));
+    }
+ }
 
