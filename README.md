@@ -25,4 +25,6 @@ would be interesting and help me learn more about my personal taste.
 - As a user, I want to be able to move movies from the *to watch list* to the 
 *already watched* list
 - As a user, I want to be able to see the number of movies in each list 
-- As a user, I want to be able to see the total running time of the movies in each list 
+- As a user, I want to be able to see the total running time of the movies in each list
+- As a user, I want to be able to save my towatch and already watched lists to file 
+- As a user, I want to be able to start the application and have to option to load my towatch and alreadywatched lists from before 
