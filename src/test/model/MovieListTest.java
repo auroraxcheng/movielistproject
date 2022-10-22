@@ -103,6 +103,40 @@ public class MovieListTest {
     }
 
     @Test
+    public void numWatchedMoviesTest() {
+        assertEquals(1, testlist.numWatchedMovies());
+    }
+
+    @Test
+    public void numMultipleWatchedMoviesTest() {
+        testlist.addWatchedMovie(m3);
+        assertEquals(2, testlist.numWatchedMovies());
+    }
+
+    @Test
+    public void numNoWatchedMoviesTest() {
+        testlist.removeWatchedMovie(m1);
+        assertEquals(0, testlist.numWatchedMovies());
+    }
+
+    @Test
+    public void numUnwatchedMoviesTest() {
+        assertEquals(1, testlist.numUnwatchedMovies());
+    }
+
+    @Test
+    public void numMultipleTowatchMoviesTest() {
+        testlist.addToWatchMovie(m4);
+        assertEquals(2, testlist.numWatchedMovies());
+    }
+
+    @Test
+    public void numNoUnwatchedMoviesTest() {
+        testlist.removeToWatchMovie(m2);
+        assertEquals(0, testlist.numUnwatchedMovies());
+    }
+
+    @Test
     public void moveMovieWhenNotThereTest() {
         testlist.moveMovie(m5);
         assertFalse(testlist.getToWatchList().contains(m5));

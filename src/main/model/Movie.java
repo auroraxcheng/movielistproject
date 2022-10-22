@@ -1,6 +1,9 @@
 package model;
 
-public class Movie {
+import org.json.JSONObject;
+import persistence.Writable;
+
+public class Movie implements Writable {
 
     private String name;
     private MovieGenre genre;
@@ -25,5 +28,14 @@ public class Movie {
 
     public int getRuntime() {
         return runtime;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("genre", genre);
+        json.put("runtime", runtime);
+        return json;
     }
 }

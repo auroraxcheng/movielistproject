@@ -1,0 +1,20 @@
+{
+    "listtitle": "My movie list",
+    "watchedmovies": [
+        {
+            "name": "American Psycho",
+            "genre": "HORROR",
+            "runtime": 150
+        },
+        {
+            "name": "Star Wars",
+            "genre": "FANTASY",
+            "runtime": 300
+        }
+    ],
+    "towatchmovies": [{
+        "name": "Spirited Away",
+        "genre": "ANIME",
+        "runtime": 100
+    }]
+}

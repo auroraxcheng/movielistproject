@@ -1,19 +1,23 @@
 package model;
 
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MovieList {
+public class MovieList implements Writable {
     private String listtitle;
     private List<Movie> towatchlist;
     private List<Movie> alreadywatchedlist;
 
     public MovieList(String listtitle) {
         this.listtitle = listtitle;
-        towatchlist = new LinkedList<>();
-        alreadywatchedlist = new LinkedList<>();
+        towatchlist = new ArrayList<>();
+        alreadywatchedlist = new ArrayList<>();
     }
 
     // getters
@@ -54,6 +58,14 @@ public class MovieList {
         this.alreadywatchedlist.remove(m);
     }
 
+    public int numWatchedMovies() {
+        return alreadywatchedlist.size();
+    }
+
+    public int numUnwatchedMovies() {
+        return towatchlist.size();
+    }
+
     // modifies: towatchlist and alreadywatchedlist
     // effects: moves movie from unwatched to watched list
     public void moveMovie(Movie m) {
@@ -63,6 +75,37 @@ public class MovieList {
         } else {
             System.out.println("Movie isn't in to-watch list");
         }
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("listtitle", listtitle);
+        json.put("towatchmovies", toWatchMoviesToJson());
+        json.put("watchedmovies", watchedMoviesToJson());
+        return json;
+    }
+
+    // EFFECTS: returns all movies in towatchlist as a JSON array
+    private JSONArray toWatchMoviesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Movie m : towatchlist) {
+            jsonArray.put(m.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    // EFFECTS: returns all movies in watched list as a JSON array
+    private JSONArray watchedMoviesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Movie m : alreadywatchedlist) {
+            jsonArray.put(m.toJson());
+        }
+
+        return jsonArray;
     }
 }
 

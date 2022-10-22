@@ -4,22 +4,28 @@ import model.Movie;
 import model.MovieGenre;
 import model.MovieList;
 import org.w3c.dom.ls.LSOutput;
-
+import persistence.JsonReader;
+import persistence.JsonWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+// CITATION: Json Reader/Writer exmaple
 
 public class MovieListApp {
-
+    private static final String JSON_STORE = "./data/movielist.json";
     private MovieList movielist;
     private Movie m1;
     private Movie m2;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // runs movie list tracking application
-    public MovieListApp() {
+    public MovieListApp() throws FileNotFoundException {
         runMovieListApp();
     }
 
@@ -57,6 +63,10 @@ public class MovieListApp {
             numMovies();
         } else if (instructions.equals("rt")) {
             runtimeOfList();
+        } else if (instructions.equals("s")) {
+            saveList();
+        } else if (instructions.equals("l")) {
+            loadList();
         } else {
             System.out.println("Unable to perform instruction");
         }
@@ -74,6 +84,9 @@ public class MovieListApp {
 
         input = new Scanner(System.in);
         input.useDelimiter("\n");
+
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
     // effects: displays menu of options
@@ -84,6 +97,8 @@ public class MovieListApp {
         System.out.println("\tm -> move from towatch to watched list");
         System.out.println("\tn -> number of movies in list");
         System.out.println("\trt -> runtime of list");
+        System.out.println("\ts -> save movie list to file");
+        System.out.println("\tl -> load movie list from file");
         System.out.println("\tq -> quit");
     }
 
@@ -149,6 +164,28 @@ public class MovieListApp {
     private void runtimeOfList() {
         List<Movie> selected = selectList();
         printMovieRuntime(selected);
+    }
+
+    // effects: saves movie list to file
+    private void saveList() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(movielist);
+            jsonWriter.close();
+            System.out.println("Saved " + movielist.getTitle() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+
+    }
+
+    private void loadList() {
+        try {
+            movielist = jsonReader.read();
+            System.out.println("Loaded " + movielist.getTitle() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 
     // effects: selects between watched and towatch list
