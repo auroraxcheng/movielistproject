@@ -3,14 +3,11 @@ package ui;
 import model.Movie;
 import model.MovieGenre;
 import model.MovieList;
-import org.w3c.dom.ls.LSOutput;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 // CITATION: Json Reader/Writer exmaple
