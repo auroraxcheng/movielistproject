@@ -13,8 +13,13 @@
         },
         {
             "name": "hi",
-            "genre": "FANTASY",
-            "runtime": 100
+            "genre": "COMEDY",
+            "runtime": 5
+        },
+        {
+            "name": "hellohello",
+            "genre": "HORROR",
+            "runtime": 20
         }
     ]
 }

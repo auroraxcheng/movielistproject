@@ -1,7 +1,7 @@
 # My Personal Project
 
 ## Animated films tracker  
-Javascript application that keeps a log of all the films someone has watched 
+Application that keeps a log of all the films someone has watched 
 and wants to watch in two different lists, whilst also returning data analysis 
 about the genre and running time of all the media consumed. 
 

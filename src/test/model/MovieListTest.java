@@ -122,11 +122,14 @@ public class MovieListTest {
         assertEquals(1, testlist.numUnwatchedMovies());
     }
 
+    /*
     @Test
     public void numMultipleTowatchMoviesTest() {
         testlist.addToWatchMovie(m4);
-        assertEquals(2, testlist.numWatchedMovies());
+        assertEquals(2, testlist.numToWatchMovies());
     }
+
+     */
 
     @Test
     public void numNoUnwatchedMoviesTest() {

@@ -60,6 +60,10 @@ public class MovieListApp {
             numMovies();
         } else if (instructions.equals("rt")) {
             runtimeOfList();
+        } else if (instructions.equals("ptw")) {
+            printMovieNames(movielist.getToWatchList());
+        } else if (instructions.equals("pw")) {
+            printMovieNames(movielist.getAlreadyWatchedList());
         } else if (instructions.equals("s")) {
             saveList();
         } else if (instructions.equals("l")) {
@@ -94,6 +98,8 @@ public class MovieListApp {
         System.out.println("\tm -> move from towatch to watched list");
         System.out.println("\tn -> number of movies in list");
         System.out.println("\trt -> runtime of list");
+        System.out.println("\tptw -> display to watched list");
+        System.out.println("\tpw -> display watched list");
         System.out.println("\ts -> save movie list to file");
         System.out.println("\tl -> load movie list from file");
         System.out.println("\tq -> quit");
@@ -112,6 +118,7 @@ public class MovieListApp {
             if (moviename.equals(m.getName())) {
                 selected.remove(m);
                 System.out.println("Movie removed");
+                break;
             }
         }
     }
@@ -147,6 +154,7 @@ public class MovieListApp {
                 movielist.moveMovie(m);
                 System.out.println("Movie has been moved. Watched list: ");
                 printMovieNames(movielist.getAlreadyWatchedList());
+                break;
             }
         }
     }
@@ -162,6 +170,7 @@ public class MovieListApp {
         List<Movie> selected = selectList();
         printMovieRuntime(selected);
     }
+
 
     // effects: saves movie list to file
     private void saveList() {
@@ -217,7 +226,7 @@ public class MovieListApp {
         System.out.println(time);
     }
 
-    // effects: prints out names of all movies in the list
+    // effects: prints out names of all movies in the specified list
     private void printMovieNames(List<Movie> selected) {
         for (Movie m : selected) {
             System.out.println(m.getName());
