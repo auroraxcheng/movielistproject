@@ -1,4 +1,5 @@
 package model;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,16 +15,16 @@ public class MovieListTest {
 
     @BeforeEach
     public void setup() {
-    testlist = new MovieList("Aurora's list");
+        testlist = new MovieList("Aurora's list");
 
-    m1 = new Movie("Spirited Away", MovieGenre.ANIME, 200);
-    m2 = new Movie("Perfect Blue", MovieGenre.HORROR, 100);
-    m3 = new Movie("Star Wars", MovieGenre.ACTION, 250);
-    m4 = new Movie("Naruto", MovieGenre.ANIME, 300);
-    m5 = new Movie("Interstellar", MovieGenre.SCIFI, 100);
+        m1 = new Movie("Spirited Away", MovieGenre.ANIME, 200);
+        m2 = new Movie("Perfect Blue", MovieGenre.HORROR, 100);
+        m3 = new Movie("Star Wars", MovieGenre.ACTION, 250);
+        m4 = new Movie("Naruto", MovieGenre.ANIME, 300);
+        m5 = new Movie("Interstellar", MovieGenre.SCIFI, 100);
 
-    testlist.addWatchedMovie(m1);
-    testlist.addToWatchMovie(m2);
+        testlist.addWatchedMovie(m1);
+        testlist.addToWatchMovie(m2);
 
     }
 
@@ -154,5 +155,5 @@ public class MovieListTest {
         assertFalse(testlist.getToWatchList().contains(m4));
         assertTrue(testlist.getAlreadyWatchedList().contains(m4));
     }
- }
+}
 

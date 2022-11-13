@@ -47,7 +47,7 @@ public class JSonWriterTest extends JSonTest {
         try {
             MovieList ml = new MovieList("My movie list");
             ml.addToWatchMovie(new Movie("Spirited Away", MovieGenre.ANIME, 100));
-            ml.addWatchedMovie(new Movie("American Psycho", MovieGenre.HORROR, 150 ));
+            ml.addWatchedMovie(new Movie("American Psycho", MovieGenre.HORROR, 150));
             ml.addWatchedMovie(new Movie("Star Wars", MovieGenre.FANTASY, 300));
             JsonWriter writer = new JsonWriter("./data/testWriterMovieList.json");
             writer.open();

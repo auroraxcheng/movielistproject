@@ -5,6 +5,8 @@ import model.MovieGenre;
 import model.MovieList;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+
+import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
