@@ -3,12 +3,15 @@ package ui;
 import model.Movie;
 import model.MovieGenre;
 import model.MovieList;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 /*
  * The panel in which the movie menu is displayed
@@ -22,6 +25,12 @@ public class MoviePanel extends JPanel {
     private DefaultListModel listmodel;
     private Movie m2;
     private Movie m1;
+    private ImageIcon image;
+    private JPanel imagePanel;
+    private JLabel imageAsLabel;
+
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     private static final String removeString = "Remove Movie";
     private static final String filterString = "Animated movies only";
@@ -123,7 +132,18 @@ public class MoviePanel extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("hi");
+            for (Movie m : ml.getToWatchList()) {
+                if (m.getGenre() != MovieGenre.ANIME) {
+                    listmodel.removeElement(m.getName());
+                }
+            }
+
+            for (Movie m : ml.getAlreadyWatchedList()) {
+                if (m.getGenre() != MovieGenre.ANIME) {
+                    listmodel.removeElement(m.getName());
+                }
+            }
+            loadImage();
         }
     }
 
@@ -139,10 +159,26 @@ public class MoviePanel extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("hi");
+            try {
+                ml = jsonReader.read();
+            } catch (IOException ie) {
+                System.out.println("null");
+            }
         }
     }
 
+    public void loadImage() {
+        JFrame imageframe = new JFrame();
+        String sep = System.getProperty("file.separator");
+        image = new ImageIcon(System.getProperty("user.dir") + sep
+                + "images" + sep + "killua.jpeg");
+
+        JLabel lbl = new JLabel(image);
+        imageframe.add(lbl); //puts label inside the jframe
+
+        imageframe.setSize(image.getIconWidth(), image.getIconHeight());
+        imageframe.setVisible(true);
+    }
     //This method is required by ListSelectionListener.
     public void valueChanged(ListSelectionEvent e) {
         if (e.getValueIsAdjusting() == false) {
