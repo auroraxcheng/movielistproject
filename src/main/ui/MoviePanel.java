@@ -29,10 +29,13 @@ public class MoviePanel extends JPanel {
     private JPanel imagePanel;
     private JLabel imageAsLabel;
 
+    private static final String JSON_STORE = "./data/movielist.json";
+
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
     private static final String removeString = "Remove Movie";
+    private static final String addString = "Add Movie";
     private static final String filterString = "Animated movies only";
     private static final String loadString = "Load workspace";
     private static final String saveString = "Save workspace";
@@ -41,6 +44,10 @@ public class MoviePanel extends JPanel {
     private JButton filterButton;
     private JButton loadButton;
     private JButton saveButton;
+    private JButton addButton;
+    private JTextField movieName;
+    private JTextField movieGenre;
+    private JTextField movieDuration;
 
     public MoviePanel() {
         super(new BorderLayout());
@@ -51,13 +58,26 @@ public class MoviePanel extends JPanel {
         list = new JList(listmodel);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setSelectedIndex(0);
-        // list.addListSelectionListener(this);
         list.setVisibleRowCount(5);
         JScrollPane listScrollPane = new JScrollPane(list);
 
         JButton removeButton = new JButton(removeString);
         removeButton.setActionCommand(removeString);
         removeButton.addActionListener(new RemoveListener());
+
+        JButton addButton = new JButton(addString);
+        AddListener addListener = new AddListener(addButton);
+        addButton.setActionCommand(addString);
+        addButton.addActionListener(new AddListener(addButton));
+
+        movieName = new JTextField(10);
+        movieName.addActionListener(addListener);
+
+        movieGenre = new JTextField(10);
+        movieGenre.addActionListener(addListener);
+
+        movieDuration = new JTextField(10);
+        movieDuration.addActionListener(addListener);
 
         JButton filterButton = new JButton(filterString);
         filterButton.setActionCommand(filterString);
@@ -75,6 +95,10 @@ public class MoviePanel extends JPanel {
         buttonPane.setLayout(new BoxLayout(buttonPane,
                 BoxLayout.LINE_AXIS));
         buttonPane.add(removeButton);
+        buttonPane.add(addButton);
+        buttonPane.add(movieName);
+        buttonPane.add(movieGenre);
+        buttonPane.add(movieDuration);
         buttonPane.add(Box.createHorizontalStrut(5));
         buttonPane.add(new JSeparator(SwingConstants.VERTICAL));
         buttonPane.add(Box.createHorizontalStrut(5));
@@ -87,6 +111,7 @@ public class MoviePanel extends JPanel {
         add(buttonPane, BorderLayout.PAGE_END);
     }
 
+    // EFFECTS: initializes and shows the list
     public void makeList() {
         ml = new MovieList("Aurora's list");
         m1 = new Movie("Spirited Away", MovieGenre.ANIME, 200);
@@ -94,6 +119,9 @@ public class MoviePanel extends JPanel {
 
         ml.addWatchedMovie(m1);
         ml.addToWatchMovie(m2);
+
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
 
         for (Movie m : ml.getToWatchList()) {
             listmodel.addElement(m.getName());
@@ -104,6 +132,7 @@ public class MoviePanel extends JPanel {
         }
     }
 
+    // EFFECTS: implements removeListener
     class RemoveListener implements ActionListener {
 
         @Override
@@ -128,6 +157,43 @@ public class MoviePanel extends JPanel {
         }
     }
 
+    // EFFECTS: implements AddListener: adds inputted movie into towatch list
+    class AddListener implements ActionListener {
+        private boolean alreadyEnabled = false;
+        private JButton button;
+
+        public AddListener(JButton button) {
+            this.button = button;
+        }
+
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String name = movieName.getText();
+            String genreinput = movieGenre.getText();
+            String durationinput = movieDuration.getText();
+            int duration = Integer.parseInt(durationinput);
+            MovieGenre genre = MovieGenre.valueOf(genreinput);
+
+            //User didn't type in a unique name...
+            if (name.equals("") || alreadyInList(name)) {
+                Toolkit.getDefaultToolkit().beep();
+                movieName.requestFocusInWindow();
+                movieName.selectAll();
+                return;
+            }
+            listmodel.addElement(movieName.getText());
+
+            Movie m = new Movie(name, genre, duration);
+            ml.addToWatchMovie(m);
+
+            //Reset the text field.
+            movieName.requestFocusInWindow();
+            movieName.setText("");
+        }
+    }
+
+    // EFFECTS: implements FilterListener
     class FilterListener implements ActionListener {
 
         @Override
@@ -147,11 +213,19 @@ public class MoviePanel extends JPanel {
         }
     }
 
+    // EFFECTS: implements SaveListener
     class SaveListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("hi");
+            try {
+                resetList();
+                jsonWriter.open();
+                jsonWriter.write(ml);
+                jsonWriter.close();
+            } catch (IOException ie) {
+                System.out.println("null");
+            }
         }
     }
 
@@ -160,13 +234,37 @@ public class MoviePanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
+                resetList();
                 ml = jsonReader.read();
+                for (Movie m : ml.getAlreadyWatchedList()) {
+                    listmodel.addElement(m.getName());
+                }
+                for (Movie m : ml.getToWatchList()) {
+                    listmodel.addElement(m.getName());
+                }
             } catch (IOException ie) {
                 System.out.println("null");
             }
         }
     }
 
+    public boolean alreadyInList(String name) {
+        boolean b;
+        b = false;
+        for (Movie m : ml.getAlreadyWatchedList()) {
+            if (m.getName() == name) {
+                b = true;
+            }
+        }
+        for (Movie m : ml.getToWatchList()) {
+            if (m.getName() == name) {
+                b = true;
+            }
+        }
+        return b;
+    }
+
+    // EFFECTS: loads image into new JFrame
     public void loadImage() {
         JFrame imageframe = new JFrame();
         String sep = System.getProperty("file.separator");
@@ -179,6 +277,16 @@ public class MoviePanel extends JPanel {
         imageframe.setSize(image.getIconWidth(), image.getIconHeight());
         imageframe.setVisible(true);
     }
+
+    public void resetList() {
+        for (Movie m : ml.getAlreadyWatchedList()) {
+            listmodel.removeElement(m.getName());
+        }
+        for (Movie m : ml.getToWatchList()) {
+            listmodel.removeElement(m.getName());
+        }
+    }
+
     //This method is required by ListSelectionListener.
     public void valueChanged(ListSelectionEvent e) {
         if (e.getValueIsAdjusting() == false) {
@@ -199,6 +307,7 @@ public class MoviePanel extends JPanel {
      * this method should be invoked from the
      * event-dispatching thread.
      */
+    // EFFECTS: create and display the GUI
     private static void createAndShowGUI() {
         //Create and set up the window.
         JFrame frame = new JFrame("MoviePanel");
@@ -214,6 +323,7 @@ public class MoviePanel extends JPanel {
         frame.setVisible(true);
     }
 
+    // EFFECTS: runs application GUI
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
