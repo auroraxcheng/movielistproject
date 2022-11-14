@@ -26,8 +26,6 @@ public class MoviePanel extends JPanel {
     private Movie m2;
     private Movie m1;
     private ImageIcon image;
-    private JPanel imagePanel;
-    private JLabel imageAsLabel;
 
     private static final String JSON_STORE = "./data/movielist.json";
 
@@ -49,12 +47,11 @@ public class MoviePanel extends JPanel {
     private JTextField movieGenre;
     private JTextField movieDuration;
 
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public MoviePanel() {
         super(new BorderLayout());
-
         listmodel = new DefaultListModel();
         makeList();
-
         list = new JList(listmodel);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setSelectedIndex(0);
@@ -116,7 +113,6 @@ public class MoviePanel extends JPanel {
         ml = new MovieList("Aurora's list");
         m1 = new Movie("Spirited Away", MovieGenre.ANIME, 200);
         m2 = new Movie("Perfect Blue", MovieGenre.HORROR, 100);
-
         ml.addWatchedMovie(m1);
         ml.addToWatchMovie(m2);
 
