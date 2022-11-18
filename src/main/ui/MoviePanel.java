@@ -129,6 +129,7 @@ public class MoviePanel extends JPanel {
     }
 
     // EFFECTS: implements removeListener
+    // MODIFIES: this, towatchlist and watched list
     class RemoveListener implements ActionListener {
 
         @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
@@ -138,8 +139,9 @@ public class MoviePanel extends JPanel {
             listmodel.remove(index);
 
             /*
-            Object name = listmodel.elementAt(index);
-            name = name.toString();
+            Object o = listmodel.getElementAt(index);
+            String name = o.toString();
+
             for (Movie m : ml.getToWatchList()) {
                 if (m.getName() == name) {
                     ml.removeToWatchMovie(m);
@@ -150,9 +152,8 @@ public class MoviePanel extends JPanel {
                     ml.removeWatchedMovie(m);
                 }
             }
-            
-             */
 
+             */
 
             int size = listmodel.getSize();
 
@@ -171,6 +172,7 @@ public class MoviePanel extends JPanel {
     }
 
     // EFFECTS: implements AddListener: adds inputted movie into towatch list
+    // MODIFIES: this, towatchlist
     class AddListener implements ActionListener {
         private boolean alreadyEnabled = false;
         private JButton button;
@@ -209,6 +211,7 @@ public class MoviePanel extends JPanel {
     }
 
     // EFFECTS: implements FilterListener
+    // MODIFIES: this
     class FilterListener implements ActionListener {
 
         @Override
@@ -293,6 +296,7 @@ public class MoviePanel extends JPanel {
         imageframe.setVisible(true);
     }
 
+    // EFFECTS: resets lists
     public void resetList() {
         for (Movie m : ml.getAlreadyWatchedList()) {
             listmodel.removeElement(m.getName());

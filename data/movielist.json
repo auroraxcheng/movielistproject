@@ -5,21 +5,9 @@
         "genre": "ANIME",
         "runtime": 200
     }],
-    "towatchmovies": [
-        {
-            "name": "Perfect Blue",
-            "genre": "HORROR",
-            "runtime": 100
-        },
-        {
-            "name": "hi",
-            "genre": "ANIME",
-            "runtime": 100
-        },
-        {
-            "name": "hello",
-            "genre": "COMEDY",
-            "runtime": 100
-        }
-    ]
+    "towatchmovies": [{
+        "name": "Perfect Blue",
+        "genre": "HORROR",
+        "runtime": 100
+    }]
 }
