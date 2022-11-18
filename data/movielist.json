@@ -12,8 +12,13 @@
             "runtime": 100
         },
         {
-            "name": "hello",
+            "name": "hi",
             "genre": "ANIME",
+            "runtime": 100
+        },
+        {
+            "name": "hello",
+            "genre": "COMEDY",
             "runtime": 100
         }
     ]

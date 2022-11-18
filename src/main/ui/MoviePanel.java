@@ -131,10 +131,28 @@ public class MoviePanel extends JPanel {
     // EFFECTS: implements removeListener
     class RemoveListener implements ActionListener {
 
+        @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
         @Override
         public void actionPerformed(ActionEvent e) {
             int index = list.getSelectedIndex();
             listmodel.remove(index);
+
+            /*
+            Object name = listmodel.elementAt(index);
+            name = name.toString();
+            for (Movie m : ml.getToWatchList()) {
+                if (m.getName() == name) {
+                    ml.removeToWatchMovie(m);
+                }
+            }
+            for (Movie m : ml.getAlreadyWatchedList()) {
+                if (m.getName() == name) {
+                    ml.removeWatchedMovie(m);
+                }
+            }
+            
+             */
+
 
             int size = listmodel.getSize();
 
@@ -143,7 +161,6 @@ public class MoviePanel extends JPanel {
 
             } else { //Select an index.
                 if (index == listmodel.getSize()) {
-                    //removed item in last position
                     index--;
                 }
 
@@ -186,6 +203,8 @@ public class MoviePanel extends JPanel {
             //Reset the text field.
             movieName.requestFocusInWindow();
             movieName.setText("");
+            movieGenre.setText("");
+            movieDuration.setText("");
         }
     }
 

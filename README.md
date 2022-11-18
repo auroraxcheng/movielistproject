@@ -28,3 +28,12 @@ would be interesting and help me learn more about my personal taste.
 - As a user, I want to be able to see the total running time of the movies in each list
 - As a user, I want to be able to save my towatch and already watched lists to file 
 - As a user, I want to be able to start the application and have to option to load my towatch and alreadywatched lists from before 
+
+## Instrutions for grader
+- You can generate first required event related to adding Xs to a Y by clicking remove movie button
+-  You can generate first required event related to adding Xs to a Y by clicking Animated movies only button
+- You can also add movies to the list by entering movie name into the first text box, 
+movie genre in the second text box, and movie duration into third text box 
+- you can locate the visual componenet by clicking the animated movies only button, a popup image should appear
+- you can save the state of the application by clicking save workspace 
+- you can reload the state of the application by clicking the load workspace button 
