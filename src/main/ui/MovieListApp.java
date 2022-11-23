@@ -138,7 +138,7 @@ public class MovieListApp {
 
         Movie newmovie = new Movie(moviename, MovieGenre.valueOf(genre), runtime);
         movielist.addToWatchMovie(newmovie);
-        System.out.println("Movie added successfully. Here is the list:");
+        // System.out.println("Movie added successfully. Here is the list:");
         printMovieNames(movielist.getToWatchList());
     }
 

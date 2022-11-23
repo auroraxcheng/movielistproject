@@ -1,13 +1,5 @@
 {
     "listtitle": "Aurora's list",
-    "watchedmovies": [{
-        "name": "Spirited Away",
-        "genre": "ANIME",
-        "runtime": 200
-    }],
-    "towatchmovies": [{
-        "name": "Perfect Blue",
-        "genre": "HORROR",
-        "runtime": 100
-    }]
+    "watchedmovies": [],
+    "towatchmovies": []
 }

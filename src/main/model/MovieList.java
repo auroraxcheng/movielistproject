@@ -37,24 +37,28 @@ public class MovieList implements Writable {
     // effects: adds a movie to to-watch list
     public void addToWatchMovie(Movie m) {
         this.towatchlist.add(m);
+        EventLog.getInstance().logEvent(new Event(m.getName() + " added to watch list"));
     }
 
     // MODIFIES: this
     // effects: removes a movie from to-watch list
     public void removeToWatchMovie(Movie m) {
         this.towatchlist.remove(m);
+        EventLog.getInstance().logEvent(new Event(m.getName() + " removed from to watch list"));
     }
 
     // MODIFIES: this
     // effects: adds a movie to already watched list
     public void addWatchedMovie(Movie m) {
         this.alreadywatchedlist.add(m);
+        EventLog.getInstance().logEvent(new Event(m.getName() + " added to already watch list"));
     }
 
     // MODIFIES: this
     // effects: removes a movie from already watched watch list
     public void removeWatchedMovie(Movie m) {
         this.alreadywatchedlist.remove(m);
+        EventLog.getInstance().logEvent(new Event(m.getName() + " removed from watched list"));
     }
 
     public int numWatchedMovies() {
@@ -74,6 +78,7 @@ public class MovieList implements Writable {
         } else {
             System.out.println("Movie isn't in to-watch list");
         }
+        EventLog.getInstance().logEvent(new Event(m.getName() + " has been moved"));
     }
 
     @Override

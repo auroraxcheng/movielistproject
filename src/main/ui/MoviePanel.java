@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Movie;
 import model.MovieGenre;
 import model.MovieList;
@@ -9,9 +11,10 @@ import persistence.JsonWriter;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * The panel in which the movie menu is displayed
@@ -21,8 +24,8 @@ import java.io.IOException;
 
 public class MoviePanel extends JPanel {
     private MovieList ml;
-    private JList list;
-    private DefaultListModel listmodel;
+    private JList<String> list;
+    private DefaultListModel<String> listmodel;
     private Movie m2;
     private Movie m1;
     private ImageIcon image;
@@ -37,6 +40,7 @@ public class MoviePanel extends JPanel {
     private static final String filterString = "Animated movies only";
     private static final String loadString = "Load workspace";
     private static final String saveString = "Save workspace";
+    private static final String eventString = "Show event log";
 
     private JButton removeButton;
     private JButton filterButton;
@@ -50,7 +54,7 @@ public class MoviePanel extends JPanel {
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public MoviePanel() {
         super(new BorderLayout());
-        listmodel = new DefaultListModel();
+        listmodel = new DefaultListModel<String>();
         makeList();
         list = new JList(listmodel);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -136,24 +140,22 @@ public class MoviePanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             int index = list.getSelectedIndex();
+            String name = list.getSelectedValue();
             listmodel.remove(index);
 
-            /*
-            Object o = listmodel.getElementAt(index);
-            String name = o.toString();
+            for (Movie m : ml.getAlreadyWatchedList()) {
+                if (m.getName().equals(name)) {
+                    ml.removeWatchedMovie(m);
+                    break;
+                }
+            }
 
             for (Movie m : ml.getToWatchList()) {
-                if (m.getName() == name) {
+                if (m.getName().equals(name)) {
                     ml.removeToWatchMovie(m);
+                    break;
                 }
             }
-            for (Movie m : ml.getAlreadyWatchedList()) {
-                if (m.getName() == name) {
-                    ml.removeWatchedMovie(m);
-                }
-            }
-
-             */
 
             int size = listmodel.getSize();
 
@@ -330,7 +332,17 @@ public class MoviePanel extends JPanel {
     private static void createAndShowGUI() {
         //Create and set up the window.
         JFrame frame = new JFrame("MoviePanel");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                EventLog el = EventLog.getInstance();
+                for (Event next : el) {
+                    System.out.println(next);
+                }
+                System.exit(0);
+            }
+        });
 
         //Create and set up the content pane.
         JComponent newContentPane = new MoviePanel();
