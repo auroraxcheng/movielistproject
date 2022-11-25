@@ -37,3 +37,9 @@ movie genre in the second text box, and movie duration into third text box
 - you can locate the visual componenet by clicking the animated movies only button, a popup image should appear
 - you can save the state of the application by clicking save workspace 
 - you can reload the state of the application by clicking the load workspace button 
+
+## Phase 4: task 3 
+- I don't think I would have refactored anything in my model 
+package as I think that it's organized in a way that makes sense
+- However, I might have refactored my MoviePanel GUI class and split it into smaller subclasses 
+to increase cohesion and make the code more readable. (ie. helper class to make the buttons and helper methods for the duplicate code regarding the button designs)
